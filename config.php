@@ -2,8 +2,8 @@
 //API数据库设置//
 $host = 'localhost'; // mysql服务器主机地址
 $port = 3306; //mysql服务器端口
-$user = 'root'; // mysql用户名
-$pass = 'Ec22zbaW8kf3FNBS'; // mysql用户名密码
+$user = 'your dbusername'; // mysql用户名
+$pass = 'your dbpass'; // mysql用户名密码
 //定义数据库//
 $luckperms = 'luckperms'; //LuckPerms数据库
 $blessing = 'skin'; //Blessing Skin Server数据库
