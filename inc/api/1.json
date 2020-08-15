@@ -1,0 +1,14 @@
+{
+    "timestamp": 1597140006232,
+    "profileId": "cabb3c5768f33e1c87a407ad30e355bf",
+    "profileName": "noavatar",
+    "isPublic": true,
+    "textures": {
+        "SKIN": {
+            "url": "https://api.zhjlfx.cn/textures/83cee5ca6afcdb171285aa00e8049c297b2dbeba0efb8ff970a5677a1b644032",
+            "metadata": {
+                "model": "slim"
+            }
+        }
+    }
+}
