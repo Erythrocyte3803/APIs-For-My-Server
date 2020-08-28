@@ -96,7 +96,7 @@ class database {
         if (!$ret) {
             $this->query_change("insert into ".$ucenter.".pre_ucenter_texturedata (skin_hash, cape_hash, model, playername, uuid, time) values ('".$skin_hash."', '".$cape_hash."', '".$model."', '".$player."', '".$uuid."', '".time()."')");
         } else {
-            $this->query_change("update ".$ucenter.".pre_ucenter_texturedata set skin_hash = '".$skin_hash."', cape_hash = '".$cape_hash."', model = '".$model."', playername = '".$player."', time = '".time()."' where uuid = ?");
+            $this->query_change("update ".$ucenter.".pre_ucenter_texturedata set skin_hash = '".$skin_hash."', cape_hash = '".$cape_hash."', model = '".$model."', playername = '".$player."', time = '".time()."' where uuid = '".$uuid."'");
         }
     }
     //判断获取的皮肤HASH是否和数据库的一致//
@@ -140,7 +140,7 @@ class database {
     //更新披风数据//
     function updateCape($hash,$uuid) {
         global $ucenter;
-        $this->query_change("update ".$ucenter.".pre_ucenter_texturedata set cape_hash = '".$pname."' where uuid = '".$uuid."'");
+        $this->query_change("update ".$ucenter.".pre_ucenter_texturedata set cape_hash = '".$hash."' where uuid = '".$uuid."'");
     }
     //通过玩家名获取UUID//
     function getUuidByName($pname) {
@@ -160,50 +160,63 @@ class database {
         }
     }
     //判断对应玩家是不是正版玩家//
-    function isPlayerGenuine($user){
+    function isPlayerGenuine($user) {
         global $ucenter;
         $ret = $this->query("select * from ".$ucenter.".pre_ucenter_members where username = '".$user."'");
         $gen = $ret[0][16];
-        if($gen == 'true'){
+        if ($gen == 'true') {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
     //判断对应玩家UUID是不是正版//
-    function isUuidGenuine($uuid){
+    function isUuidGenuine($uuid) {
         global $ucenter;
         $ret = $this->query("select * from ".$ucenter.".pre_ucenter_members where uuid = '".$uuid."'");
         $gen = $ret[0][16];
         $uuid = $ret[0][14];
         $name = $ret[0][1];
-        if(!$ret){
+        if (!$ret) {
             return false;
-        }else if ($gen != 'true'){
+        } else if ($gen != 'true') {
             $res = '非正版玩家';
-        }else{
+        } else {
             $res = '正版玩家';
         }
         return array($name,$uuid,$res);
     }
     //判断玩家是否存在//
-    function isUserExist($name){
+    function isUserExist($name) {
         global $luckperms;
         $ret = $this->query("select username from ".$luckperms.".luckperms_players where username = '".$name."'");
-        if(!$ret[0][0]){
+        if (!$ret[0][0]) {
             return false;
-        }else {
+        } else {
             return $ret[0][0];
         }
     }
     //判断玩家是否已完成正版验证//
-        function isVerified($uuid){
-        $res = $this->query("select * from pre_ucenter_members where uuid = '".$uuid."'");
+    function isVerified($uuid) {
+        global $ucenter;
+        $res = $this->query("select * from ".$ucenter.".pre_ucenter_members where uuid = '".$uuid."'");
         $verified = $res[0][16];
-        if($verified == 'false'){
-            return false;
-        }else{
+        if ($verified == 'true') {
             return true;
+        } else {
+            return false;
         }
     }
+    //根据邮箱获取原皮肤站玩家UUID//
+    function getSkinUuid($email) {
+        global $blessing;
+        $pname = $this->query("select nickname from ".$blessing.".users where email = '".$email."'");
+        $uuid = $this->query("select uuid from ".$blessing.".uuid where name = '".$pname[0][0]."'");
+        if ($uuid[0][0] == "") {
+            return false;
+        } else {
+            return $uuid[0][0];
+        }
+    }
+
 }

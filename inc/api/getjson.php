@@ -2,7 +2,7 @@
 function getSkinJson($time,$id,$name,$skin_hash,$model,$cape_hash,$url) {
     $path = $url.'/textures/'.$skin_hash;
     $path_cape = $url.'/textures/'.$cape_hash;
-    if ($cape_hash) {
+    if ($cape_hash != '') {
         $capeinfo = json_encode($array);
         $skindata = array(
             "timestamp" => $time,
