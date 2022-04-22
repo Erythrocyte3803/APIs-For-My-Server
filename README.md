@@ -1,3 +1,3 @@
-# Minecraft 9JCY Server Api
+# Minecraft 9JCY Server API
 
 Some Minecraft APIs for My Minecraft Server
