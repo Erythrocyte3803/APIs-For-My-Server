@@ -11,3 +11,4 @@ foreach (glob($_SERVER['DOCUMENT_ROOT']."/inc/api/"."*.php") as $filename) {
     include($filename);
 }
 $db = new database();
+$mcping = new mcping();
